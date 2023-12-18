@@ -1,9 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
 const allPosts = await Astro.glob("./posts/*.md")
 const pageTitle = "My Astro Learning Blog";
 ---
+<style>
+  div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .75rem;
+  }
+</style>
 <BaseLayout pageTitle = {pageTitle}>
     <p>This is where I will post about my journey learning Astro.</p>
-    <ul>{allPosts.map(post => <li><a href={post.url}>{post.frontmatter.title}</li></a>)}</ul>
+    <div >
+      {allPosts.map(post => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    </div>
 </BaseLayout>
